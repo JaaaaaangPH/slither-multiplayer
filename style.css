@@ -355,7 +355,7 @@ button:hover {
     border: none;
     border-radius: 50%;
     padding: 0;
-    background: rgba(0,0,0,0.3) center/contain no-repeat url('/images/boosts.png');
+    background: rgba(255,255,255,0.7) center/contain no-repeat url('/images/boosts.png');
     box-shadow: 0 0 0 4px rgba(0,255,136,0.18);
     cursor: pointer;
     z-index: 20;
