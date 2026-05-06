@@ -45,7 +45,7 @@ var foods = [];
 var playerName = 'Player';
 var isHost = false;
 var socket = null;
-var socketServerUrl = location.protocol + '//' + location.hostname + ':3001';
+var socketServerUrl = undefined;
 var otherPlayers = {};
 
 var minimapSize = 150;
@@ -527,8 +527,14 @@ function joinLobbyByCode(code) {
     }
     playerName = nameInput.value.trim();
     socketEventsSetup = false;
-    socket = io(socketServerUrl);
-    socket.emit('joinLobby', { code: code, playerName: playerName });
+    socket = io();
+    socket.on('connect', function() {
+        socket.emit('joinLobby', { code: code, playerName: playerName });
+    });
+    socket.on('connect_error', function(error) {
+        showError('Connection error: ' + error.message);
+        console.error('Socket connection error:', error);
+    });
     socket.on('error', function(msg) { showError(msg); });
     socket.on('playerJoined', function(data) {
         lobbyCodeEl.textContent = code;
@@ -657,8 +663,14 @@ addTouchClick('createLobbyBtn', function() {
     }
     playerName = nameInput.value.trim();
     socketEventsSetup = false;
-    socket = io(socketServerUrl);
-    socket.emit('createLobby', playerName);
+    socket = io();
+    socket.on('connect', function() {
+        socket.emit('createLobby', playerName);
+    });
+    socket.on('connect_error', function(error) {
+        showError('Connection error: ' + error.message);
+        console.error('Socket connection error:', error);
+    });
     socket.on('lobbyCreated', function(data) {
         lobbyCodeEl.textContent = data.code;
         updatePlayerList(data.players);
@@ -696,8 +708,14 @@ addTouchClick('browseLobbiesBtn', function() {
     }
     playerName = nameInput.value.trim();
     socketEventsSetup = false;
-    socket = io(socketServerUrl);
-    socket.emit('getLobbies');
+    socket = io();
+    socket.on('connect', function() {
+        socket.emit('getLobbies');
+    });
+    socket.on('connect_error', function(error) {
+        showError('Connection error: ' + error.message);
+        console.error('Socket connection error:', error);
+    });
     socket.on('lobbyList', function(list) {
         lobbyListEl.innerHTML = '';
         if (list.length === 0) {
@@ -800,12 +818,12 @@ function updateBoostButton() {
 }
 
 if (boostBtn) {
-    boosconsole.log('boost button click');
+    boostBtn.addEventListener('click', function() {
+        console.log('boost button click');
         triggerBoost();
     });
     boostBtn.addEventListener('touchend', function(e) {
         console.log('boost button touchend');
-    boostBtn.addEventListener('touchend', function(e) {
         e.preventDefault();
         triggerBoost();
     }, { passive: false });
