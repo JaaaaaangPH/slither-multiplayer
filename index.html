@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slither Multiplayer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="mobileControls">
+        <div id="joystickArea">
+            <div id="joystick"></div>
+        </div>
+        <button id="boostBtn" aria-label="Boost"></button>
+    </div>
+    
+    <div id="landscapePrompt" class="screen">
+        <div id="landscapeBox">
+            <h2>ROTATE TO LANDSCAPE</h2>
+            <p>Tap here to rotate your device to landscape mode for the best experience.</p>
+        </div>
+    </div>
+
+    <div id="startScreen" class="screen">
+        <div id="startBox">
+            <h1>SLITHER</h1>
+            <input type="text" id="nameInput" placeholder="Enter your name" maxlength="15">
+            <div class="btn-group">
+                <button id="createLobbyBtn">CREATE LOBBY</button>
+                <button id="joinLobbyBtn">JOIN LOBBY</button>
+                <button id="browseLobbiesBtn">BROWSE LOBBIES</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lobbyScreen">
+        <div id="lobbyBox">
+            <h2>LOBBY: <span id="lobbyCode"></span></h2>
+            <div id="playerList"></div>
+            <div class="lobby-controls">
+                <button id="readyBtn">READY</button>
+                <button id="leaveLobbyBtn">LEAVE</button>
+            </div>
+            <div id="hostControls" style="display:none;">
+                <button id="startGameBtn">START GAME</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lobbyListScreen">
+        <div id="lobbyListBox">
+            <h2>AVAILABLE LOBBIES</h2>
+            <div id="lobbyList"></div>
+            <button id="backBtn">BACK</button>
+        </div>
+    </div>
+
+    <div id="joinScreen">
+        <div id="joinBox">
+            <h2>JOIN LOBBY</h2>
+            <input type="text" id="codeInput" placeholder="Enter 6-digit code" maxlength="6">
+            <div class="btn-group">
+                <button id="joinBtn">JOIN</button>
+                <button id="joinBackBtn">BACK</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deathScreen">
+        <div id="deathBox">
+            <h2>GAME OVER</h2>
+            <p id="deathScore"></p>
+            <button id="retryBtn">PLAY AGAIN</button>
+        </div>
+    </div>
+
+    <div id="errorToast" class="toast"></div>
+
+    <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: #222;
+    cursor: default;
+    font-family: Arial, sans-serif;
+}
+
+body.gameplay {
+    cursor: none;
+}
+
+#gameCanvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background: #111;
+}
+
+.screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    cursor: default;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.screen * {
+    cursor: default;
+}
+
+#startScreen, #lobbyScreen, #lobbyListScreen, #joinScreen, #deathScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#deathScreen, #lobbyScreen, #lobbyListScreen, #joinScreen {
+    display: none;
+}
+
+#landscapePrompt {
+    display: none;
+}
+
+#landscapeBox {
+    background: #1a1a1a;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #00ff88;
+    min-width: 350px;
+    color: #fff;
+}
+
+#landscapeBox h2 {
+    color: #00ff88;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#landscapeBox p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#startBox, #lobbyBox, #lobbyListBox, #joinBox, #deathBox {
+    background: #1a1a1a;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #00ff88;
+    min-width: 350px;
+}
+
+#startBox h1 {
+    color: #00ff88;
+    font-size: 48px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px #00ff88;
+}
+
+#lobbyBox h2, #lobbyListBox h2, #joinBox h2 {
+    color: #00ff88;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#deathBox h2 {
+    color: #ff4444;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#deathBox p {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+input {
+    display: block;
+    width: 250px;
+    padding: 12px;
+    margin: 0 auto 15px;
+    font-size: 16px;
+    border: 2px solid #00ff88;
+    background: #111;
+    color: #fff;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+}
+
+input::placeholder {
+    color: #555;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+button {
+    padding: 12px 30px;
+    font-size: 16px;
+    background: #00ff88;
+    color: #111;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+button:hover {
+    background: #00cc66;
+}
+
+#leaveLobbyBtn {
+    background: #ff4444;
+    color: #fff;
+}
+
+#leaveLobbyBtn:hover {
+    background: #cc3333;
+}
+
+#readyBtn.ready {
+    background: #44ff44;
+}
+
+#playerList {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.player-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    background: #222;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.player-item.host {
+    border-left: 3px solid #00ff88;
+}
+
+.player-item.ready {
+    border-left: 3px solid #44ff44;
+}
+
+.player-name {
+    font-weight: bold;
+}
+
+.player-status {
+    font-size: 12px;
+    color: #888;
+}
+
+.player-status.ready {
+    color: #44ff44;
+}
+
+.kick-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    background: #ff4444;
+    color: #fff;
+}
+
+#lobbyList {
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 20px 0;
+}
+
+.lobby-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 5px 0;
+    background: #222;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.lobby-item:hover {
+    background: #333;
+}
+
+.lobby-info {
+    text-align: left;
+}
+
+.lobby-code {
+    font-weight: bold;
+    color: #00ff88;
+}
+
+.lobby-players {
+    font-size: 12px;
+    color: #888;
+}
+
+#minimap {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border: 2px solid #444;
+    background: rgba(0,0,0,0.7);
+    z-index: 5;
+}
+
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff4444;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 5px;
+    z-index: 100;
+    display: none;
+}
+
+#gameOverScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#gameOverBox {
+    background: #1a1a1a;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #00ff88;
+    min-width: 350px;
+}
+
+#gameOverTitle {
+    color: #00ff88;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#gameOverLeaderboard {
+    margin: 20px 0;
+    text-align: left;
+}
+
+#gameOverLeaderboard h3 {
+    color: #00ff88;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.lb-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 15px;
+    margin: 5px 0;
+    background: #222;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+}
+
+#mobileControls {
+    display: block;
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 10;
+    width: 170px;
+    height: 170px;
+    pointer-events: none;
+}
+
+#joystickArea,
+#boostBtn {
+    pointer-events: auto;
+}
+
+#joystickArea {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 150px;
+    height: 150px;
+}
+
+#boostBtn {
+    position: fixed;
+    right: 190px;
+    bottom: 40px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    background: rgba(255,255,255,0.7) center/contain no-repeat url('/images/boosts.png');
+    box-shadow: 0 0 0 4px rgba(0,255,136,0.18);
+    cursor: pointer;
+    z-index: 20;
+    overflow: hidden;
+}
+
+#boostBtn img {
+    display: none;
+}
+
+#boostBtn.active {
+    box-shadow: 0 0 0 4px rgba(255,255,0,0.8);
+}
+
+#boostBtn.cooldown {
+    opacity: 0.5;
+    box-shadow: 0 0 0 4px rgba(255,0,0,0.5);
+}
+
+#boostBtn:disabled {
+    cursor: not-allowed;
+}
+
+#joystickArea {
+    width: 150px;
+    height: 150px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    position: relative;
+}
+
+#joystick {
+    width: 60px;
+    height: 60px;
+    background: rgba(0,255,136,0.6);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #00ff88;
+}
+
+@media (pointer: coarse) {
+    #mobileControls {
+        display: block;
+    }
+    #gameCanvas {
+        cursor: default;
+    }
+}
+
+body.landscape-fallback {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+body.landscape-fallback #mobileControls {
+    left: 20px;
+    right: auto;
+    bottom: 20px;
+}
