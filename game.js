@@ -776,6 +776,7 @@ window.addEventListener('resize', function() {
 });
 
 function triggerBoost() {
+    console.log('triggerBoost called, gameRunning:', gameRunning, 'boostCooldown:', boostCooldown, 'player:', !!player, 'player.dead:', player ? player.dead : 'no player');
     if (!gameRunning || boostCooldown || !player || player.dead) return;
     boostActive = true;
     boostCooldown = true;
@@ -799,9 +800,11 @@ function updateBoostButton() {
 }
 
 if (boostBtn) {
-    boostBtn.addEventListener('click', function() {
+    boosconsole.log('boost button click');
         triggerBoost();
     });
+    boostBtn.addEventListener('touchend', function(e) {
+        console.log('boost button touchend');
     boostBtn.addEventListener('touchend', function(e) {
         e.preventDefault();
         triggerBoost();
